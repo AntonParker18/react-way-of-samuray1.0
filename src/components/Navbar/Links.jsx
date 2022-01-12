@@ -7,7 +7,7 @@ const Links = (props) => {
     <div>
       <div className={s.item}>
         <NavLink
-         to={props.to}
+         to={props.path}
           style={({ isActive }) => {
             return {
               textDecoration: 'none',
