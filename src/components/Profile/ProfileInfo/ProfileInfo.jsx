@@ -5,7 +5,7 @@ const ProfileInfo = () => {
   return (
     <div className={s.contant}>
       <div>
-        <img src='https://assets-prd.ignimgs.com/2021/12/28/amazing-spiderman-3-andrew-garfield-1640735299847.jpg' />
+        <img src='https://assets1.ignimgs.com/2020/11/14/spidermanremastered-blogroll-1605322159516_160w.jpg?width=1280' />
       </div >
       <div className={s.descriptionBlock}>ava + description</div>
     </div>
