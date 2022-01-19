@@ -1,6 +1,6 @@
-import { rernderEntireTree } from "../render"
+import { rernderEntireTree } from '../render'
 
-let state = {
+const state = {
   profilePage: {
     posts: [
       { id: 1, post: 'Siper-Man cool', likesCount: 100 },
@@ -35,12 +35,30 @@ let state = {
 }
 
 export let addPost = postMessage => {
-  let newPost = {
-    id: 3,
-    message: postMessage,
+  const newPost = {
+    id: state.profilePage.posts.length + 1,
+    post: postMessage,
     likesCount: 0,
   }
   state.profilePage.posts.push(newPost)
+  rernderEntireTree(state)
+}
+
+export let addMessage = dialogMessage => {
+  if (state.dialogsPage.messages.length >= state.dialogsPage.dialogs.length) {
+    const newUser = {
+      id: state.dialogsPage.dialogs.length + 1,
+      name: 'User',
+    }
+    state.dialogsPage.dialogs.push(newUser)
+  }
+
+  const newMessage = {
+    id: state.dialogsPage.messages.length + 1,
+    message: dialogMessage,
+  }
+
+  state.dialogsPage.messages.push(newMessage)
   rernderEntireTree(state)
 }
 
