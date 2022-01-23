@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+
 let store = {
   _state: {
     profilePage: {
@@ -80,7 +85,10 @@ let store = {
         return this.addMessage
       }
 
-      if (this._state.dialogsPage.messages.length >= this._state.dialogsPage.dialogs.length) {
+      if (
+        this._state.dialogsPage.messages.length >=
+        this._state.dialogsPage.dialogs.length
+      ) {
         const newUser = {
           id: this._state.dialogsPage.dialogs.length + 1,
           name: 'User',
@@ -97,5 +105,19 @@ let store = {
     }
   },
 }
+
+export const addPostActionCreator = () => ({ type: ADD_POST })
+
+export const updateNewPostTextActionCreator = text => ({
+  type: UPDATE_NEW_POST_TEXT,
+  newText: text,
+})
+
+export const addMessageActionCreactor = () => ({ type: ADD_MESSAGE })
+
+export const updateNewMessageTextActionCreator = (text) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  newText: text,
+})
 
 export default store
