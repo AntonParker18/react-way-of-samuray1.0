@@ -38,67 +38,63 @@ let store = {
     },
   },
 
+  _callSubscriber() {
+    console.log('State changed')
+  },
+
   getState() {
     return this._state
   },
 
-  _rernderEntireTree() {
-    console.log('State changed')
-  },
-
-  addPost() {
-    const newPost = {
-      id: this._state.profilePage.posts.length + 1,
-      post: this._state.profilePage.newPostText,
-      likesCount: 0,
-    }
-
-    if (this._state.profilePage.newPostText[0].length <= 0) {
-      return this.addPost
-    }
-
-    this._state.profilePage.posts.push(newPost)
-    this._state.profilePage.newPostText = ''
-    this._rernderEntireTree(this._state)
-  },
-
-  updateNewPotsText(newText) {
-    this._state.profilePage.newPostText = newText
-    this._rernderEntireTree(this._state)
-  },
-
-  addMessage() {
-    const newMessage = {
-      id: this._state.dialogsPage.messages.length + 1,
-      message: this._state.dialogsPage.newMessageText,
-    }
-
-    if (this._state.dialogsPage.newMessageText[0].length <= 0) {
-      return this.addMessage
-    }
-
-    if (this._state.dialogsPage.messages.length >= this._state.dialogsPage.dialogs.length) {
-      const newUser = {
-        id: this._state.dialogsPage.dialogs.length + 1,
-        name: 'User',
-      }
-      this._state.dialogsPage.dialogs.push(newUser)
-
-    }
-
-    this._state.dialogsPage.messages.push(newMessage)
-    this._state.dialogsPage.newMessageText = ''
-    this._rernderEntireTree(this._state)
-  },
-
-  updateNewMessageText(newText) {
-    this._state.dialogsPage.newMessageText = newText
-
-    this._rernderEntireTree(this._state)
-  },
-
   subscribe(observer) {
-    this._rernderEntireTree = observer
+    this._callSubscriber = observer
+  },
+
+  dispatch(action) {
+    if (action.type === 'ADD-POST') {
+      const newPost = {
+        id: this._state.profilePage.posts.length + 1,
+        post: this._state.profilePage.newPostText,
+        likesCount: 0,
+      }
+
+      if (this._state.profilePage.newPostText[0].length <= 0) {
+        return this.addPost
+      }
+
+      this._state.profilePage.posts.push(newPost)
+      this._state.profilePage.newPostText = ''
+      this._callSubscriber(this._state)
+    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+      this._state.profilePage.newPostText = action.newText
+      this._callSubscriber(this._state)
+    }
+
+    if (action.type === 'ADD-MESSAGE') {
+      const newMessage = {
+        id: this._state.dialogsPage.messages.length + 1,
+        message: this._state.dialogsPage.newMessageText,
+      }
+
+      if (this._state.dialogsPage.newMessageText[0].length <= 0) {
+        return this.addMessage
+      }
+
+      if (this._state.dialogsPage.messages.length >= this._state.dialogsPage.dialogs.length) {
+        const newUser = {
+          id: this._state.dialogsPage.dialogs.length + 1,
+          name: 'User',
+        }
+        this._state.dialogsPage.dialogs.push(newUser)
+      }
+
+      this._state.dialogsPage.messages.push(newMessage)
+      this._state.dialogsPage.newMessageText = ''
+      this._callSubscriber(this._state)
+    } else if (action.type == 'UPDATE-NEW-MESSAGE-TEXT') {
+      this._state.dialogsPage.newMessageText = action.newText
+      this._callSubscriber(this._state)
+    }
   },
 }
 
