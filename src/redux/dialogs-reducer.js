@@ -4,15 +4,15 @@ const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const dialogsReduser = (state, action) => {
   switch (action.type) {
     case ADD_MESSAGE:
-      let body = state.dialogsPage.newMessageText
-      state.dialogsPage.newMessageText = ''
-      state.dialogsPage.messages.push({
-        id: state.dialogsPage.messages.length + 1,
+      let body = state.newMessageText
+      state.newMessageText = ''
+      state.messages.push({
+        id: state.messages.length + 1,
         message: body,
       })
       return state
     case UPDATE_NEW_MESSAGE_TEXT:
-      state.dialogsPage.newMessageText = action.body
+      state.newMessageText = action.body
       return state
       default:
         return state
