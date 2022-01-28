@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+import dialogsReduser from './dialogs-reducer'
+import profileReducer from './profile-reducer'
+import sidebarReducer from './sidebar-reducer'
 
 let store = {
   _state: {
@@ -19,7 +18,7 @@ let store = {
         { id: 1, name: 'Parker' },
         { id: 2, name: 'DeXy' },
         { id: 3, name: 'Dimych' },
-        { id: 4, name: 'Artue' },
+        { id: 4, name: 'Artur' },
         { id: 5, name: 'Vlad' },
         { id: 6, name: 'Sasha' },
       ],
@@ -56,65 +55,10 @@ let store = {
   },
 
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      const newPost = {
-        id: this._state.profilePage.posts.length + 1,
-        post: this._state.profilePage.newPostText,
-        likesCount: 0,
-      }
-
-      if (this._state.profilePage.newPostText[0].length <= 0) {
-        return this.addPost
-      }
-
-      this._state.profilePage.posts.push(newPost)
-      this._state.profilePage.newPostText = ''
-      this._callSubscriber(this._state)
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profilePage.newPostText = action.newText
-      this._callSubscriber(this._state)
-    } else if (action.type === ADD_MESSAGE) {
-      if (this._state.dialogsPage.newMessageText[0].length <= 0) {
-        return this.addMessage
-      }
-
-      if (
-        this._state.dialogsPage.messages.length >=
-        this._state.dialogsPage.dialogs.length
-      ) {
-        const newUser = {
-          id: this._state.dialogsPage.dialogs.length + 1,
-          name: 'User',
-        }
-        this._state.dialogsPage.dialogs.push(newUser)
-      }
-
-      let body = this._state.dialogsPage.newMessageText
-      this._state.dialogsPage.newMessageText = ''
-      this._state.dialogsPage.messages.push({
-        id: this._state.dialogsPage.messages.length + 1,
-        message: body,
-      })
-      this._callSubscriber(this._state)
-    } else if (action.type == UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.dialogsPage.newMessageText = action.body
-      this._callSubscriber(this._state)
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action)
   },
 }
-
-export const addPostActionCreator = () => ({ type: ADD_POST })
-
-export const updateNewPostTextActionCreator = text => ({
-  type: UPDATE_NEW_POST_TEXT,
-  newText: text,
-})
-
-export const addMessageActionCreactor = () => ({ type: ADD_MESSAGE })
-
-export const updateNewMessageTextActionCreator = text => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  body: text,
-})
 
 export default store
