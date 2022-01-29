@@ -1,14 +1,9 @@
 import React from 'react'
-import {
-  addMessageActionCreactor,
-  updateNewMessageTextActionCreator,
-} from '../../redux/dialogs-reducer'
 import s from './Dialogs.module.css'
 import DialogsItem from './DialogsItem/DialogsItem'
 import Message from './Message/Message'
 
 const Dialogs = props => {
-
   let state = props.dialogsPage
 
   let dialogsElements = state.dialogs.map(d => (

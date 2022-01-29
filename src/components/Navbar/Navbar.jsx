@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import Friend from './Friend/Friend'
+// import Friend from './Friend/Friend'
 import s from './Navbar.module.css'
 
 const Navbar = props => {
-  let friendElement = props.state.friends.map(f => <Friend name={f.name} />)
+  // let friendElement = props.state.friends.map(f => <Friend name={f.name} />)
 
   return (
     <nav className={s.nav}>
@@ -53,7 +53,7 @@ const Navbar = props => {
       <div className={s.friends}>
         <h2>Frends</h2>
         <div className={s.friend}>
-          {friendElement}
+          {/* {friendElement} */}
         </div>
       </div>
     </nav>
