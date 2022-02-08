@@ -6,3 +6,7 @@
 .selectetPage {
   font-weight: bold;
 }
+
+.preloader {
+  width: 50px;
+}
