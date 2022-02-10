@@ -11,7 +11,7 @@ const ProfileInfo = props => {
     networkName => props.profile.contacts[networkName]
   )
 
-    const lookingForAJob = props.profile.lookingForAJob ? 'Yes' : 'No'
+  const lookingForAJob = props.profile.lookingForAJob ? 'Yes' : 'No'
 
   return (
     <div className={s.contant}>
