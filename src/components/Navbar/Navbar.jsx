@@ -11,7 +11,7 @@ const Navbar = props => {
       <div>
         <div className={s.item}>
           <NavLink
-            to={'profile/'}
+            to={'profile/*'}
             style={({ isActive }) => ({ color: isActive ? 'gold' : 'white' })}
           >
             Profile
