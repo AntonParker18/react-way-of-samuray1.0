@@ -27,7 +27,7 @@ export const setAuthUserData = (userId, email, login) => ({
   data: { userId, email, login },
 })
 
-export const getAuth = (id, email, login) => {
+export const getAuthUserData = (id, email, login) => {
   return dispatch => {
     UsersAPI.getFollow(id, email, login).then(data => {
       if (data.resultCode === 0) {

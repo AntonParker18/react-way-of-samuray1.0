@@ -48,7 +48,7 @@ export const updateNewPostTextActionCreator = text => ({
   newText: text,
 })
 
-export const getProfile = userId => {
+export const getUserProfile = userId => {
   return dispatch => {
     UsersAPI.getProfile(userId).then(data => {
       dispatch(setUserProfile(data))
