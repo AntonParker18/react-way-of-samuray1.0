@@ -1,9 +1,7 @@
-import * as axios from 'axios'
 import React from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router'
-import { UsersAPI } from '../../api/api'
-import { setUserProfile } from '../../redux/profile-reducer'
+import { setUserProfile, getProfile } from '../../redux/profile-reducer'
 import Profile from './Profile'
 
 const withRouter = WrappedComponent => props => {
@@ -24,13 +22,7 @@ class ProfileContainer extends React.Component {
     if (!userId) {
       userId = 2
     }
-    UsersAPI.getProfile(userId)
-      .then(data => {
-        this.props.setUserProfile(data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    this.props.getProfile(userId)
   }
   render() {
     return <Profile {...this.props} profile={this.props.profile} />
@@ -43,6 +35,6 @@ let mapStateToProps = state => ({
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, { setUserProfile })(
+export default connect(mapStateToProps, { setUserProfile, getProfile })(
   WithUrlDataContainerComponent
 )
