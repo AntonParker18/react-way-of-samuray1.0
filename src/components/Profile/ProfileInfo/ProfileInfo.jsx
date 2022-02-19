@@ -1,6 +1,7 @@
 import React from 'react'
 import Preloader from '../../common/preloader'
 import s from './ProfileInfo.module.css'
+import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = props => {
   if (!props.profile) {
@@ -16,14 +17,14 @@ const ProfileInfo = props => {
   return (
     <div className={s.contant}>
       <div>
-        <img
+        {/* <img
           className={s.wallpaper}
           src='https://assets1.ignimgs.com/2020/11/14/spidermanremastered-blogroll-1605322159516_160w.jpg?width=1280'
-        />
+        /> */}
       </div>
       <div className={s.descriptionBlock}>
         <img src={props.profile.photos.large} />
-        ava + description
+        <ProfileStatus status='Hello my friends' />
         <div>About me: {props.profile.aboutMe}</div>
         <div>Full name: {props.profile.fullName}</div>
         <div>
