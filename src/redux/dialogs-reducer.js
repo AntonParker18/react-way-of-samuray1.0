@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 let initialState = {
   dialogs: [
@@ -17,17 +16,14 @@ let initialState = {
     { id: 4, message: 'Yo' },
     { id: 5, message: 'Yo' },
   ],
-
-  newMessageText: '',
 }
 
 const dialogsReduser = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MESSAGE: {
-      let body = state.newMessageText
+      let body = action.newMessageBody
       return {
         ...state,
-        newMessageText: '',
         messages: [
           ...state.messages,
           {
@@ -37,38 +33,14 @@ const dialogsReduser = (state = initialState, action) => {
         ],
       }
     }
-    case UPDATE_NEW_MESSAGE_TEXT: {
-      return {
-        ...state,
-        newMessageText: action.body,
-      }
-    }
     default:
       return state
   }
-  // if (action.type === ADD_MESSAGE) {
-  //   if (state.dialogsPage.newMessageText[0].length <= 0) {
-  //     return state.addMessage
-  //   }
-
-  //   if (state.dialogsPage.messages.length >= state.dialogsPage.dialogs.length) {
-  //     const newUser = {
-  //       id: state.dialogsPage.dialogs.length + 1,
-  //       name: 'User',
-  //     }
-  //     state.dialogsPage.dialogs.push(newUser)
-  //   }
-  // } else if (action.type == UPDATE_NEW_MESSAGE_TEXT) {
-  // }
-
-  // return state
 }
 
-export const addMessageActionCreactor = () => ({ type: ADD_MESSAGE })
-
-export const updateNewMessageTextActionCreator = text => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  body: text,
+export const addMessageActionCreactor = newMessageBody => ({
+  type: ADD_MESSAGE,
+  newMessageBody,
 })
 
 export default dialogsReduser

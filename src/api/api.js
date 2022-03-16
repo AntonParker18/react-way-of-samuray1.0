@@ -4,7 +4,7 @@ const instance = axios.create({
   withCredentials: true,
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
   headers: {
-    'API-KEY': '5a38cc3c-d3c5-4a49-8e66-0f31bd18ed61',
+    'API-KEY': '0edb6b3d-7952-4cf5-aa55-3b33b9337b3f',
   },
 })
 
@@ -16,11 +16,6 @@ export const UsersAPI = {
         return response.data
       })
   },
-  getFollow() {
-    return instance.get(`auth/me`).then(response => {
-      return response.data
-    })
-  },
   getDelete(userId) {
     return instance.delete(`follow/${userId}`).then(response => {
       return response.data
@@ -31,9 +26,13 @@ export const UsersAPI = {
       return response.data
     })
   },
-  getProfile(userId) {
-    console.warn('Obsolet methot. Please profileAPI object')
-    return ProfileAPI.getProfile(userId)
+}
+
+export const AuthAPI = {
+  getAuth() {
+    return instance.get(`auth/me`).then(response => {
+      return response.data
+    })
   },
 }
 
