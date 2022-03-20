@@ -5,6 +5,7 @@ import { login } from '../../redux/auth-reducer'
 import { required } from '../../utils/validators/validators'
 import { Input } from '../common/FormsControls/FormsControls'
 import { Navigate } from 'react-router'
+import s from './../common/FormsControls/FormsControls.module.css'
 
 const LoginFrom = props => {
   return (
@@ -35,6 +36,7 @@ const LoginFrom = props => {
         />
         remember me
       </div>
+      {props.error && <div className={s.formSummaryError}>{props.error}</div>}
       <div>
         <button>Login</button>
       </div>
