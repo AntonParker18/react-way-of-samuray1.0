@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ProfileStatusWithHooks = props => {
   const [editMode, setEditMode] = useState(false)
   const [status, setStatus] = useState(props.status)
+
+  useEffect(() => {
+    setStatus(props.status)
+  }, [props.status])
 
   const activateMode = () => {
     setEditMode(true)
@@ -17,8 +21,8 @@ const ProfileStatusWithHooks = props => {
     setStatus(e.currentTarget.value)
   }
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
+  const handleKeyPress = e => {
+    if (e.key === 'Enter') {
       deactivateEditMode(e)
     }
   }
