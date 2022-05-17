@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import {
   maxLengthCreator,
@@ -10,7 +10,7 @@ import Post from './Post/Post'
 
 const maxLength10 = maxLengthCreator(10)
 
-let MyPosts = props => {
+const MyPosts = memo(props => {
   const postsElement = props.posts.map(p => (
     <Post message={p.post} likesCount={p.likesCount} />
   ))
@@ -29,7 +29,7 @@ let MyPosts = props => {
       <div className={s.posts}>{postsElement}</div>
     </div>
   )
-}
+})
 
 const MyPostsForm = props => {
   return (
