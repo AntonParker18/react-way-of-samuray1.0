@@ -11,9 +11,9 @@ import Post from './Post/Post'
 const maxLength10 = maxLengthCreator(10)
 
 const MyPosts = memo(props => {
-  const postsElement = props.posts.map(p => (
-    <Post message={p.post} likesCount={p.likesCount} />
-  ))
+  const postsElement = [...props.posts]
+    .reverse()
+    .map(p => <Post message={p.post} likesCount={p.likesCount} />)
 
   const onAddPost = values => {
     props.addPost(values.newPostElement)
