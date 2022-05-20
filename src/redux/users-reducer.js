@@ -74,7 +74,7 @@ export const toggleIsFetching = isFetching => ({
   type: TOGGLE_IS_FETCHING,
   isFetching,
 })
-export const toggleFollowingProgress = (isFetching, userId) => ({
+export const toggleFollowingInProgress = (isFetching, userId) => ({
   type: TOGGLE_IS_FOLLOWING_PROGRESS,
   isFetching,
   userId,
@@ -98,14 +98,14 @@ const followUnfollowFlow = async (
   actionCreator,
   apiMethod
 ) => {
-  dispatch(toggleFollowingProgress(true, userId))
+  dispatch(toggleFollowingInProgress(true, userId))
 
   const res = await apiMethod(userId)
-  if (res == 0) {
+  if (res.resultCode == 0) {
     dispatch(actionCreator(userId))
   }
 
-  dispatch(toggleFollowingProgress(false, userId))
+  dispatch(toggleFollowingInProgress(false, userId))
 }
 
 export const follow = userId => {
@@ -113,8 +113,8 @@ export const follow = userId => {
     followUnfollowFlow(
       dispatch,
       userId,
-      UsersAPI.getPost.bind(UsersAPI),
-      followSuccess
+      followSuccess,
+      UsersAPI.getPost.bind(UsersAPI)
     )
   }
 }
@@ -124,8 +124,8 @@ export const unfollow = userId => {
     followUnfollowFlow(
       dispatch,
       userId,
+      unfollowSuccess,
       UsersAPI.getDelete.bind(UsersAPI),
-      unfollowSuccess
     )
   }
 }

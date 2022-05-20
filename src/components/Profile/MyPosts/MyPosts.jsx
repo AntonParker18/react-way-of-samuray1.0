@@ -4,7 +4,7 @@ import {
   maxLengthCreator,
   required,
 } from '../../../utils/validators/validators'
-import { Textarea } from '../../common/FormsControls/FormsControls'
+import { createField, Textarea } from '../../common/FormsControls/FormsControls'
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
 
@@ -35,12 +35,19 @@ const MyPostsForm = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field
+        {/* <Field
           name='newPostElement'
           component={Textarea}
           validate={[required, maxLength10]}
           placeholder={'Post message'}
-        />
+        /> */}
+        {createField(
+          'Post message',
+          'newPostElement',
+          'Textarea',
+          [required, maxLength10],
+          null, null
+        )}
       </div>
       <div>
         <button>Add post</button>
