@@ -3,47 +3,43 @@ import Preloader from '../../common/Preloader/preloader'
 import s from './ProfileInfo.module.css'
 import ProfileStatusWithHooks from './ProfileStatusWithHooks'
 
-const ProfileInfo = props => {
-  if (!props.profile) {
+const ProfileInfo = ({profile, status, updateStatus}) => {
+  if (!profile) {
     return <Preloader />
   }
 
-  const networks = Object.keys(props.profile.contacts).filter(
-    networkName => props.profile.contacts[networkName]
+  const networks = Object.keys(profile.contacts).filter(
+    networkName => profile.contacts[networkName]
   )
 
-  const lookingForAJob = props.profile.lookingForAJob ? 'Yes' : 'No'
+  const lookingForAJob = profile.lookingForAJob ? 'Yes' : 'No'
 
   return (
     <div className={s.contant}>
       <div>
-        {/* <img
-          className={s.wallpaper}
-          src='https://assets1.ignimgs.com/2020/11/14/spidermanremastered-blogroll-1605322159516_160w.jpg?width=1280'
-        /> */}
       </div>
       <div className={s.descriptionBlock}>
-        <img src={props.profile.photos.large} />
+        <img src={profile.photos.large} />
         <ProfileStatusWithHooks
-          status={props.status}
-          updateStatus={props.updateStatus}
+          status={status}
+          updateStatus={updateStatus}
         />
-        <div>About me: {props.profile.aboutMe}</div>
-        <div>Full name: {props.profile.fullName}</div>
+        <div>About me: {profile.aboutMe}</div>
+        <div>Full name: {profile.fullName}</div>
         <div>
           Looking for a job:
           <span> {lookingForAJob}</span>
         </div>
         <div>
           Looking for a job description:
-          {props.profile.lookingForAJobDescription}
+          {profile.lookingForAJobDescription}
         </div>
         <div>
           <div>
             <h3>Contacts:</h3>
             {networks.map(networkName => (
               <div>
-                {networkName}: {props.profile.contacts[networkName]}
+                {networkName}: {profile.contacts[networkName]}
               </div>
             ))}
           </div>
