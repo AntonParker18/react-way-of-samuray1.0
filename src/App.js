@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense } from 'react'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
-import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from './components/Users/UsersContainer'
-import ProfileContainer from './components/Profile/ProfileContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import Login from './components/Login/Login'
 import { connect, Provider } from 'react-redux'
@@ -16,6 +14,14 @@ import { useParams } from 'react-router'
 import { initializeApp } from './redux/app-reducer'
 import Preloader from './components/common/Preloader/preloader'
 import store from './redux/redux-store'
+
+const DialogsContainer = React.lazy(() =>
+  import('./components/Dialogs/DialogsContainer')
+)
+
+const ProfileContainer = React.lazy(() =>
+  import('./components/Profile/ProfileContainer')
+)
 
 const withRouter = WrappedComponent => props => {
   const params = useParams()
@@ -43,17 +49,19 @@ class App extends Component {
         <HeaderContainer />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Routes>
-            <Route path='/profile' element={<ProfileContainer />}>
-              <Route path=':userId' element={<ProfileContainer />} />
-            </Route>
-            <Route path='/dialogs/*' element={<DialogsContainer />} />
-            <Route path='/users' element={<UsersContainer />} />
-            <Route path='news' element={<News />} />
-            <Route path='music' element={<Music />} />
-            <Route path='settings' element={<Settings />} />
-            <Route path='login' element={<Login />} />
-          </Routes>
+          <Suspense fallback={<div>Loading<Preloader /></div>}>
+            <Routes>
+              <Route path='/profile' element={<ProfileContainer />}>
+                <Route path=':userId' element={<ProfileContainer />} />
+              </Route>
+              <Route path='/dialogs/*' element={<DialogsContainer />} />
+              <Route path='/users' element={<UsersContainer />} />
+              <Route path='news' element={<News />} />
+              <Route path='music' element={<Music />} />
+              <Route path='settings' element={<Settings />} />
+              <Route path='login' element={<Login />} />
+            </Routes>
+          </Suspense>
         </div>
       </div>
     )
@@ -70,11 +78,13 @@ let AppContainer = compose(
 )(App)
 
 let SamurayJsApp = () => {
- return <BrowserRouter>
+  return (
+    <BrowserRouter>
       <Provider store={store}>
         <AppContainer />
       </Provider>
     </BrowserRouter>
+  )
 }
 
 export default SamurayJsApp
