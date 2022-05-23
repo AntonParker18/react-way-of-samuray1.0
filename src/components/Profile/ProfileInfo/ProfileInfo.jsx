@@ -2,8 +2,9 @@ import React from 'react'
 import Preloader from '../../common/Preloader/preloader'
 import s from './ProfileInfo.module.css'
 import ProfileStatusWithHooks from './ProfileStatusWithHooks'
+import usersPhoto from './../../../assets/images/user.png'
 
-const ProfileInfo = ({profile, status, updateStatus}) => {
+const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto }) => {
   if (!profile) {
     return <Preloader />
   }
@@ -14,16 +15,19 @@ const ProfileInfo = ({profile, status, updateStatus}) => {
 
   const lookingForAJob = profile.lookingForAJob ? 'Yes' : 'No'
 
+  const onMainPhotoSelector = e => {
+    if (e.target.files[0]) {
+      savePhoto(e.target.files[0])
+    }
+  }
+
   return (
     <div className={s.contant}>
-      <div>
-      </div>
+      <div></div>
       <div className={s.descriptionBlock}>
-        <img src={profile.photos.large} />
-        <ProfileStatusWithHooks
-          status={status}
-          updateStatus={updateStatus}
-        />
+        <img src={profile.photos.large || usersPhoto} className={s.mainPhoto} />
+        {isOwner && <input type={'file'} onChange={onMainPhotoSelector} />}
+        <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
         <div>About me: {profile.aboutMe}</div>
         <div>Full name: {profile.fullName}</div>
         <div>
