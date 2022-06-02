@@ -10,7 +10,7 @@ import HeaderContainer from './components/Header/HeaderContainer'
 import Login from './components/Login/Login'
 import { connect, Provider } from 'react-redux'
 import { compose } from 'redux'
-import { useParams } from 'react-router'
+import { Navigate, useParams } from 'react-router'
 import { initializeApp } from './redux/app-reducer'
 import Preloader from './components/common/Preloader/preloader'
 import store from './redux/redux-store'
@@ -36,8 +36,16 @@ const withRouter = WrappedComponent => props => {
 }
 
 class App extends Component {
+  catcheAppUnhandleErorrs = (reason, promise) => {
+    console.log('some error occured', reason, promise)
+  }
   componentDidMount() {
     this.props.initializeApp()
+    window.addEventListener('unhandledrejection', this.catcheAppUnhandleErorrs)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.catcheAppUnhandleErorrs)
   }
 
   render() {
@@ -49,8 +57,16 @@ class App extends Component {
         <HeaderContainer />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Suspense fallback={<div>Loading<Preloader /></div>}>
+          <Suspense
+            fallback={
+              <div>
+                Loading
+                <Preloader />
+              </div>
+            }
+          >
             <Routes>
+              <Route path='/' element={<Navigate replace to={'/profile'} />} />
               <Route path='/profile' element={<ProfileContainer />}>
                 <Route path=':userId' element={<ProfileContainer />} />
               </Route>
@@ -60,6 +76,7 @@ class App extends Component {
               <Route path='music' element={<Music />} />
               <Route path='settings' element={<Settings />} />
               <Route path='login' element={<Login />} />
+              <Route path='*' element={<div>404 NOT FOUNT</div>} />
             </Routes>
           </Suspense>
         </div>

@@ -4,6 +4,7 @@ const SET_INITIALIZED_SACCESS = 'SET_INITIALIZED_SACCESS'
 
 let initialState = {
   initialized: false,
+  globalError: null
 }
 
 const appReducer = (state = initialState, action) => {
