@@ -1,5 +1,4 @@
 import React, { Component, Suspense } from 'react'
-import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import News from './components/News/News'
@@ -14,6 +13,9 @@ import { Navigate, useParams } from 'react-router'
 import { initializeApp } from './redux/app-reducer'
 import Preloader from './components/common/Preloader/preloader'
 import store from './redux/redux-store'
+
+import './App.css'
+
 
 const DialogsContainer = React.lazy(() =>
   import('./components/Dialogs/DialogsContainer')
@@ -94,7 +96,7 @@ let AppContainer = compose(
   connect(mapStateToProps, { initializeApp })
 )(App)
 
-let SamurayJsApp = () => {
+let SamuraiJsApp = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
@@ -104,4 +106,4 @@ let SamurayJsApp = () => {
   )
 }
 
-export default SamurayJsApp
+export default SamuraiJsApp
