@@ -35,12 +35,6 @@ const MyPostsForm = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        {/* <Field
-          name='newPostElement'
-          component={Textarea}
-          validate={[required, maxLength10]}
-          placeholder={'Post message'}
-        /> */}
         {createField(
           'Post message',
           'newPostElement',

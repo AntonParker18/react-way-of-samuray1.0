@@ -1,4 +1,4 @@
-export const updateObjectInArrray = (
+export const updateObjectInArray = (
   items,
   itemId,
   objPropName,

@@ -1,12 +1,14 @@
-export type UserProfile = {
+export type UserProfileType = {
   userId: number
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
-  contacts: Contacts
+  contacts: ContactsType
+  photos: PhotosType
+  aboutMe: string
 }
 
-export type Contacts = {
+export type ContactsType = {
   github: string
   vk: string
   facebook: string

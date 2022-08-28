@@ -1,6 +1,5 @@
 import { stopSubmit } from 'redux-form'
 import { ThunkAction } from 'redux-thunk'
-// @ts-ignore
 import { AuthAPI, SecurityAPI } from '../api/api'
 import { AppStateType } from './redux-store'
 

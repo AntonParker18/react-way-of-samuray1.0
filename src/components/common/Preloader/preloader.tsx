@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
+// @ts-ignore
 import preloader from './..//../../assets/images/preloader.gif'
 
-let Preloader = () => {
+let Preloader: FC = () => {
   return (
     <div>
       <img style={{ width: '50px' }} src={preloader} />
