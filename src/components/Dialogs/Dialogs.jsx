@@ -19,7 +19,7 @@ const Dialogs = props => {
   ))
 
   const addNewMessage = values => {
-    props.addMessageActionCreactor(values.newMessageBody)
+    props.sendMessage(values.newMessageBody)
     values.newMessageBody = ''
   }
 
